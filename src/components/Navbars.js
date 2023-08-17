@@ -18,6 +18,7 @@ const Navbars = () => {
            <Nav className="me-auto">
              <Nav.Link><NavLink  to="/home">Home</NavLink></Nav.Link>
              <Nav.Link><NavLink to="/about">About</NavLink></Nav.Link>
+             <Nav.Link><NavLink to="/expensetracker">Expense Tracker</NavLink></Nav.Link>
              <Nav.Link><NavLink to="/login">Login</NavLink></Nav.Link>
              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

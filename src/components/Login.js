@@ -2,8 +2,11 @@ import React,{useState} from 'react';
  import { Container,Card } from 'react-bootstrap';
  import Button from 'react-bootstrap/Button';
  import Form from 'react-bootstrap/Form';
+ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate=useNavigate();
+  
      const [email, setemail] = useState('');
      const [password, setpassword] = useState('');
      const [confirmpassword, setconfirmpassword] = useState('')
@@ -30,14 +33,22 @@ const Login = () => {
        const enteredpassword=password;
        const enteredconfirmpassword=confirmpassword;
        let password2;
-       if(enteredpassword===enteredconfirmpassword){
+       if(!isLogin && enteredpassword===enteredconfirmpassword){
           password2=enteredconfirmpassword
+       }else if(isLogin && enteredpassword){
+         password2=enteredpassword
        }else{
-         alert('Password Not Matching')
+        alert('Password Not Matching')
        }
       
        console.log(enteredemail,password2)
-       fetch('https:identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAz3m7AYKNKO0fdAzD5nOCyTT-6dTFAzy4',{
+       let url;
+       if(isLogin){
+        url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAz3m7AYKNKO0fdAzD5nOCyTT-6dTFAzy4'
+       }else{
+        url='https:identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAz3m7AYKNKO0fdAzD5nOCyTT-6dTFAzy4'
+       }
+       fetch(url,{
          method:'POSt',
          body:JSON.stringify({
            email:enteredemail,
@@ -50,10 +61,7 @@ const Login = () => {
        }).then((res)=>{
          console.log(res)
          if(res.ok){
-           return res.json().then((data)=>{
-             throw new Error('Sucess')
-            
-           })
+           return res.json();
         
      
          }else{
@@ -63,7 +71,10 @@ const Login = () => {
          }
        }).then((data)=>{
          console.log(data)
-         alert(data)
+         alert('sucess')
+         navigate('/expensetracker')
+         localStorage.setItem('token',data.idToken)
+         //cartctx.login(data.email,data.idToken)
        })
        .catch((err)=>{
          alert(err.message)
@@ -97,10 +108,10 @@ const Login = () => {
         <Form.Label style={{fontSize:'bold'}}>Password</Form.Label>
         <Form.Control onChange={passwordhandler} type="password" placeholder="Password" />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      {!isLogin &&  <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Confirm Password</Form.Label>
         <Form.Control onChange={confirmpasswordhandler}type="password" placeholder="Password" />
-      </Form.Group>
+      </Form.Group>}
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check onClick={checkhandler} type="checkbox" label="Check me out" />
       </Form.Group>
