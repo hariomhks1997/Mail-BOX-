@@ -1,0 +1,10 @@
+.button{
+    color:red;
+    background-color: cornflowerblue;
+    height: fit-content;
+    margin-top: 2rem; 
+    border-radius: 1rem;
+    margin-right: auto;
+    padding-block: 0.5rem;
+
+}
