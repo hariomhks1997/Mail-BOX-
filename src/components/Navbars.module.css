@@ -1,0 +1,12 @@
+.nav{
+    position:fixed;
+    top: 0;
+    z-index: 20;
+}
+.nav a{
+    text-decoration: none;
+}
+.nav a:hover{
+    background-color: aqua;
+   
+}
