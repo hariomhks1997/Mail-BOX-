@@ -5,7 +5,7 @@ import React,{useState,useContext} from 'react';
  import { useNavigate } from 'react-router-dom';
  import CartContext from '../Store/Cart-context';
 
-const Login = () => {
+const Login = (props) => {
   const navigate=useNavigate();
   const cartctx = useContext(CartContext)
  
@@ -109,11 +109,14 @@ const Login = () => {
        }).then((data)=>{
          console.log(data)
          alert('sucess')
-         navigate('/expensetracker')
+         navigate('/verifyemail')
+        // navigate('/expensetracker')
          //localStorage.setItem('token',data.idToken)
          const email=data.email.replace('@','').replace('.','')
         cartctx.login(email,data.idToken)
         localStorage.setItem('picture',data.profilePicture)
+        
+
        })
        .catch((err)=>{
          alert(err.message)
@@ -128,7 +131,7 @@ const Login = () => {
     }
 
   return (
-       <Container style={{width:'35%',background:'rgba(0, 255, 132, 0.881)',padding:'2rem',borderRadius:'3rem',marginTop:'6rem',alignItems:'center'}}>
+       <Container style={{background:'rgba(0, 255, 132, 0.881)',padding:'2rem',borderRadius:'3rem',marginTop:'6rem',alignItems:'center',width:'50%'}} expand='lg'>
        
         
       <Form  onSubmit={submithandler} style={{width:'auto',}}>
@@ -166,9 +169,11 @@ const Login = () => {
       </div>
       <Card style={{textAlign:'center',marginTop:'1rem'}} >
   <Card.Body onClick={changemode}>{!isLogin?'Have A already Account ? LogIn':'Create Account'}</Card.Body>
+
 </Card>
 
   </Form>
+  
   
     </Container> 
     
