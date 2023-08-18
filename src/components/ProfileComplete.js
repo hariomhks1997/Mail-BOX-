@@ -99,40 +99,42 @@ const ProfileComplete = (props) => {
           backgroundColor: "pink",
           display: "flex",
           justifyContent: "space-between",
+          padding:'1rem',
+          borderRadius:'1rem'
         }}
       >
-        <li>Winner Never Quit, Quitter never win</li>
-        <li>
+        <li style={{listStyle:'none'}}>Winner Never Quit, Quitter never win</li>
+        <li style={{listStyle:'none'}}>
           You Profile is 64% completed. A complete profile has higher chance of
-          landng a job. Complete Now{" "}
+          landng a job. Complete Now
         </li>
       </CardHeader>
       <hr></hr>
-      <Container style={{ background: "violet" }}>
+      <Container style={{ background: "violet", borderRadius:'2rem',width:'20%',minWidth:'50%' }}>
         <Form onSubmit={updatehandler}>
-          <div
+          <CardHeader
             style={{
               display: "flex",
               justifyContent: "space-between",
-              marginTop: "6rem",
+              
             }}
           >
-            <header style={{ fontSize: "2rem", marginTop: "2rem" }}>
+            <CardHeader style={{ marginTop: "2rem" }}>
               Contact Details
-            </header>
+            </CardHeader>
             <Button style={{ marginTop: "2rem" }}>Cancel</Button>
-          </div>
-          <div style={{ display: "flex", marginTop: "2rem" }}>
-            <div style={{ display: "flex" }}>
-              <label>Full Name</label>
-              <input onChange={namehandler} type="text" value={name}></input>
+          </CardHeader>
+          <div style={{ display: "flex", marginTop: "2rem",}}>
+            <Form.Group style={{ display: "flex" ,}}>
+              <Form.Label size="sm" >Full Name</Form.Label>
+              <Form.Control size="sm" style={{marginLeft:'0.50rem',borderRadius:'1rem'}} onChange={namehandler} type="text" value={name}></Form.Control>
+            </Form.Group>
+            <div style={{ display: "flex",}}>
+              <Form.Label size="sm" >Profile Phote Url</Form.Label>
+              <Form.Control size="sm" style={{marginLeft:'0.50rem',borderRadius:'1rem'}} onChange={photohandler} type="text" value={photo}></Form.Control>
             </div>
-            <div style={{ display: "flex", marginLeft: "1rem" }}>
-              <label>Profile Phote Url</label>
-              <input onChange={photohandler} type="text" value={photo}></input>
-            </div>
           </div>
-          <Button type="submit" style={{ marginTop: "2rem" }}>
+          <Button type="submit" style={{ marginTop: "2rem",marginBottom:'2rem' }}>
             Update
           </Button>
         </Form>

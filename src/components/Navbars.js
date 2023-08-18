@@ -14,9 +14,9 @@ const Navbars = () => {
     cartctx.logout();
   }
   return (
-    <div className={classes.nav} style={{position:'fixed',width:'100%'}}>
+    <div className={classes.nav} >
       
-     <Navbar className="bg-body-tertiary">
+     <Navbar expand='lg' className="bg-body-tertiary">
        <Container>
          <Navbar.Brand href="#home">Expense Tracker</Navbar.Brand>
          <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -27,6 +27,7 @@ const Navbars = () => {
              {cartctx.isLoggedIn && <Nav.Link><NavLink to="/expensetracker">Expense Tracker</NavLink></Nav.Link>}
              {!cartctx.isLoggedIn &&  <Nav.Link><NavLink to="/login">Login</NavLink></Nav.Link>}
              {cartctx.isLoggedIn && <Nav.Link><NavLink onClick={logouthandler} to="/logout">Logout</NavLink></Nav.Link>}
+             <NavLink style={{display:'none'}} to="/verifyemail">Email Verification</NavLink>
              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                <NavDropdown.Item href="#action/3.2">
