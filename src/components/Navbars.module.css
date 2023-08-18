@@ -8,5 +8,6 @@
 }
 .nav a:hover{
     background-color: aqua;
+    border-radius: 1rem;
    
 }

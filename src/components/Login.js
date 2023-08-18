@@ -1,26 +1,52 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
  import { Container,Card } from 'react-bootstrap';
  import Button from 'react-bootstrap/Button';
  import Form from 'react-bootstrap/Form';
  import { useNavigate } from 'react-router-dom';
+ import CartContext from '../Store/Cart-context';
 
 const Login = () => {
   const navigate=useNavigate();
+  const cartctx = useContext(CartContext)
+ 
   
      const [email, setemail] = useState('');
      const [password, setpassword] = useState('');
      const [confirmpassword, setconfirmpassword] = useState('')
-     const [isLogin, setislogin] = useState(true)
+     const [isLogin, setislogin] = useState(true);
+     const [isvalid, setisvalid] = useState(true)
      const changemode=()=>{
         setislogin((prev)=>!prev)
      }
      const emailhandler=(event)=>{
-       setemail(event.target.value)
+      if(event.target.value.trim().length>0 ){
+        setisvalid(true)
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+      setemail(event.target.value)
      }
      const passwordhandler=(event)=>{
+      if(event.target.value.trim().length>0){
+        setisvalid(true)
+      }
        setpassword(event.target.value)
      }
      const confirmpasswordhandler=(event)=>{
+      if(event.target.value.trim().length>0){
+        setisvalid(true)
+      }
          setconfirmpassword(event.target.value)
 
      }
@@ -29,16 +55,27 @@ const Login = () => {
      }
      const submithandler=(event)=>{
        event.preventDefault();
+       if(email.trim().length===0 || password.trim().length===0 ){
+        setisvalid(false)
+        return;
+       }else{
+
+       
        const enteredemail=email;
        const enteredpassword=password;
        const enteredconfirmpassword=confirmpassword;
        let password2;
        if(!isLogin && enteredpassword===enteredconfirmpassword){
           password2=enteredconfirmpassword
+      
        }else if(isLogin && enteredpassword){
          password2=enteredpassword
+        
        }else{
+        setisvalid(false)
         alert('Password Not Matching')
+        return;
+       
        }
       
        console.log(enteredemail,password2)
@@ -73,8 +110,10 @@ const Login = () => {
          console.log(data)
          alert('sucess')
          navigate('/expensetracker')
-         localStorage.setItem('token',data.idToken)
-         //cartctx.login(data.email,data.idToken)
+         //localStorage.setItem('token',data.idToken)
+         const email=data.email.replace('@','').replace('.','')
+        cartctx.login(email,data.idToken)
+        localStorage.setItem('picture',data.profilePicture)
        })
        .catch((err)=>{
          alert(err.message)
@@ -86,6 +125,7 @@ const Login = () => {
       
 
      }
+    }
 
   return (
        <Container style={{width:'35%',background:'rgba(0, 255, 132, 0.881)',padding:'2rem',borderRadius:'3rem',marginTop:'6rem',alignItems:'center'}}>
@@ -97,20 +137,20 @@ const Login = () => {
   <Card.Body style={{fontSize:'2rem',height:'1rem',marginBottom:'3rem'}}>{!isLogin?'Create Account':'LogIn'}</Card.Body>
 </Card>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label style={{fontSize:'bold'}}>Email address</Form.Label>
-        <Form.Control onChange={emailhandler} type="email" placeholder="Enter email" />
+        <Form.Label style={{fontSize:'bold',color:!isvalid?'red':'black'}}>Email address</Form.Label>
+        <Form.Control style={{borderColor:!isvalid?'red':'black',background:!isvalid?'salmon':'transparent'}} onChange={emailhandler} type="email" placeholder="Enter email" />
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label style={{fontSize:'bold'}}>Password</Form.Label>
-        <Form.Control onChange={passwordhandler} type="password" placeholder="Password" />
+        <Form.Label style={{fontSize:'bold',color:!isvalid?'red':'black'}}>Password</Form.Label>
+        <Form.Control style={{borderColor:!isvalid?'red':'black',background:!isvalid?'salmon':'transparent'}} onChange={passwordhandler} type="password" placeholder="Password" />
       </Form.Group>
       {!isLogin &&  <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Confirm Password</Form.Label>
-        <Form.Control onChange={confirmpasswordhandler}type="password" placeholder="Password" />
+        <Form.Label style={{fontSize:'bold',color:!isvalid?'red':'black'}} >Confirm Password</Form.Label>
+        <Form.Control style={{borderColor:!isvalid?'red':'black',background:!isvalid?'salmon':'transparent'}} onChange={confirmpasswordhandler}type="password" placeholder="Password" />
       </Form.Group>}
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check onClick={checkhandler} type="checkbox" label="Check me out" />
