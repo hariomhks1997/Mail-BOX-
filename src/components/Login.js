@@ -4,11 +4,14 @@ import React,{useState,useContext} from 'react';
  import Form from 'react-bootstrap/Form';
  import { useNavigate } from 'react-router-dom';
  import CartContext from '../Store/Cart-context';
- import { NavLink } from 'react-router-dom';
 
 const Login = (props) => {
   const navigate=useNavigate();
   const cartctx = useContext(CartContext)
+  const forgetpasswordhandler=(event)=>{
+   event.preventDefault();
+   navigate('/forget')
+  }
   
  
   
@@ -163,7 +166,7 @@ const Login = (props) => {
       </Form.Group>
       
       <div  style={{textAlign:'center'}}>
-      {isLogin && <NavLink style={{marginBottom:'1rem',fontSize:'10px',}} to='/forget'>Forget Password</NavLink>}<br></br>
+      {isLogin && <Button onClick={forgetpasswordhandler} style={{marginBottom:'1rem',fontSize:'10px',}}>Forget Password</Button>}<br></br>
       {isLogin && <Button variant="primary" type="submit">
         Login
       </Button>}

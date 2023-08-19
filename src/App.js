@@ -26,6 +26,7 @@ const App = () => {
     <Route exact path='/home' element={<Home></Home>}></Route>
     <Route exact path='/about' element={<About></About>}></Route>
     <Route exact path='/expensetracker' element={emailverify ? <EmailVerification shown={shownhandler}></EmailVerification>:<ExpenseTracker token={cartctx.token}></ExpenseTracker>}></Route>
+    
    <Route exact path='/complete' element={<ProfileComplete  ></ProfileComplete>}></Route>
 
     <Route exact path='/login' element={<Login></Login>}></Route>
@@ -35,7 +36,7 @@ const App = () => {
       
       
     </Routes>
-  
+   
  
     </div>
   )
