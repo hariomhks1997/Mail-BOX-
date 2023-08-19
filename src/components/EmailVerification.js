@@ -50,7 +50,7 @@ const EmailVerification = (props) => {
   return (
     <Model>
         <Button onClick={verifyemail}>Verify Email</Button>
-    </Model>
+    </Model> 
   )
 }
 

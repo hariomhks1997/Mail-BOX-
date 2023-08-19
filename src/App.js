@@ -8,6 +8,7 @@ import ExpenseTracker from './components/ExpenseTracker';
 import CartContext from './Store/Cart-context';
 import ProfileComplete from './components/ProfileComplete';
 import EmailVerification from './components/EmailVerification';
+import ForgetPassword from './components/ForgetPassword';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
 
     <Route exact path='/login' element={<Login></Login>}></Route>
   {emailverify && <Route exact path='/verifyemail' element={<EmailVerification shown={shownhandler}></EmailVerification>}></Route>}
+  <Route exact path='/forget' element={<ForgetPassword></ForgetPassword>}></Route>
     
       
       

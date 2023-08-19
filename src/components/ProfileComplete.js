@@ -5,6 +5,10 @@ import CartContext from "../Store/Cart-context";
 
 const ProfileComplete = (props) => {
   const authctx = useContext(CartContext);
+ 
+  
+  
+  
 
   const [name, setname] = useState("");
   const [photo, setphoto] = useState("");

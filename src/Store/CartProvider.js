@@ -7,6 +7,7 @@ const CartProvider = (props) => {
   const [additem, setadditem] = useState([])
   const [totalamount, settotalamount] = useState(0);
   const [quantity, setquantity] = useState(0)
+ 
 const initialtoken=localStorage.getItem('token')
   const [token, settoken] = useState(initialtoken);
 
@@ -45,6 +46,12 @@ const initialtoken=localStorage.getItem('token')
   }, [additem]);
   
   
+  
+  
+ 
+  
+  
+  
  
   
 
@@ -58,8 +65,10 @@ const initialtoken=localStorage.getItem('token')
 
     localStorage.setItem("emailtoken", emailtoken);
     localStorage.setItem("token",token);
-
     
+  
+  
+   
     
 
     
@@ -152,6 +161,7 @@ const initialtoken=localStorage.getItem('token')
     additem: additemhandler,
     removeitem: removeitemhandler,
     message: "Click Here",
+    
    
   
 

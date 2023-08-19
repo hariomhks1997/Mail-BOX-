@@ -4,10 +4,12 @@ import React,{useState,useContext} from 'react';
  import Form from 'react-bootstrap/Form';
  import { useNavigate } from 'react-router-dom';
  import CartContext from '../Store/Cart-context';
+ import { NavLink } from 'react-router-dom';
 
 const Login = (props) => {
   const navigate=useNavigate();
   const cartctx = useContext(CartContext)
+  
  
   
      const [email, setemail] = useState('');
@@ -15,6 +17,7 @@ const Login = (props) => {
      const [confirmpassword, setconfirmpassword] = useState('')
      const [isLogin, setislogin] = useState(true);
      const [isvalid, setisvalid] = useState(true)
+     
      const changemode=()=>{
         setislogin((prev)=>!prev)
      }
@@ -158,12 +161,14 @@ const Login = (props) => {
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check onClick={checkhandler} type="checkbox" label="Check me out" />
       </Form.Group>
+      
       <div  style={{textAlign:'center'}}>
+      {isLogin && <NavLink style={{marginBottom:'1rem',fontSize:'10px',}} to='/forget'>Forget Password</NavLink>}<br></br>
       {isLogin && <Button variant="primary" type="submit">
         Login
       </Button>}
       
-      {!isLogin && <Button  variant="primary" type="submit">
+      {!isLogin && <Button style={{marginTop:'1px'}} variant="primary" type="submit">
         SignUp
       </Button>}
       </div>
