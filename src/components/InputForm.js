@@ -8,12 +8,12 @@ import { Container } from 'react-bootstrap'
 import ListGroup from 'react-bootstrap/ListGroup';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 
-const InputForm = () => {
+const InputForm = (props) => {
     const cartctx = useContext(CartContext)
     console.log(cartctx.items)
     
     const product=cartctx.items.map((ite)=>(
-    <InputItem key={Math.random().toString()} item={ite.item} description={ite.description} price={ite.price} id={ite.id} date={ite.date}></InputItem>
+    <InputItem key={Math.random().toString()} item={ite.item} description={ite.description} price={ite.price} id={ite.id} date={ite.date} item2={ite} updateitem={props.updateitem}></InputItem>
     ))
     const totalamount=cartctx.totalamount.toFixed(2)
   return (

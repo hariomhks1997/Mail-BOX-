@@ -98,30 +98,56 @@ const initialtoken=localStorage.getItem('token')
   
 
   const additemhandler =async (item1) => {
+    console.log(item1)
+    
    
    
     try{
+      const existingitemindex=additem.findIndex(
+             (items)=>items.date===item1.previousdate )
+             const existingitem=additem[existingitemindex]
+  console.log(existingitem)
+  if(existingitem){
+        const updateditem={
+          ...existingitem,
+          item:item1.item,
+          description:item1.description,
+          price:item1.price,
+          date:existingitem.date,
+
+
+        }
+        console.log(updateditem)
+       const response= await axios.put(`https://reacthariom-default-rtdb.firebaseio.com/${email}/${existingitem.id}.json`,
+      updateditem);
+      console.log(response.data)
+      
+  setadditem((previtem)=>(previtem.map((cartitem)=>(cartitem.date===existingitem.date?updateditem:cartitem))))
+      }else{
+        const response=await axios.post(`https://reacthariom-default-rtdb.firebaseio.com/${email}.json`,
+        item1 );
+        const data=await response.data.name;
+        let id=data;
+        let date=item1.date
+      let item=item1.item
+      let description=item1.description
+      let price=item1.price
+    console.log(data)
+    const add={
+     id,
+     date,
+     item,
+     description,
+     price
+    }
+    console.log(add)
+    setadditem((prev)=>[...prev,add])
     
-    
-    const response=await axios.post(`https://reacthariom-default-rtdb.firebaseio.com/${email}.json`,
-      item1 );
-      const data=await response.data.name;
-      let id=data;
-      let date=item1.date
-    let item=item1.item
-    let description=item1.description
-    let price=item1.price
-  console.log(data)
-  const add={
-   id,
-   date,
-   item,
-   description,
-   price
-  }
-  console.log(add)
-  setadditem((prev)=>[...prev,add])
+      }
   
+            
+    
+    
         
       }catch(err){
       alert(err.message)
@@ -161,7 +187,10 @@ const initialtoken=localStorage.getItem('token')
   }
     
   const removeitemhandler = async (item) => {
-    
+    console.log(item)
+    const response=await axios.delete(`https://reacthariom-default-rtdb.firebaseio.com/${email}/${item.id}.json`)
+    console.log(response)
+    setadditem((previtem)=>previtem.filter((item1)=>item1.id!==item.id))
       
     //   const existingitemindex=additem.findIndex(
     //     (items)=>items.id===item.id
@@ -204,6 +233,9 @@ const initialtoken=localStorage.getItem('token')
     
     
   };
+  const updatehandler=(item)=>{
+    
+  }
 
   const cartContext = {
     token:token,
@@ -220,6 +252,7 @@ const initialtoken=localStorage.getItem('token')
     isLoggedIn: userIsLoggedIn,
     login: loginhandler,
     logout: logouthandler,
+    update:updatehandler,
     
   };
   return (

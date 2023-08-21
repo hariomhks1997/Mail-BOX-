@@ -20,20 +20,32 @@ const ExpenseTracker = () => {
   const selecthandler=useRef();
   const descriptionhandler=useRef()
   const pricehandler=useRef();
+  const datehandler=useRef();
+  const updateitemhandler=(item)=>{
+  console.log(item)
+  selecthandler.current.value=item.item;
+  descriptionhandler.current.value=item.description;
+  pricehandler.current.value=item.price;
+  datehandler.current.value=item.date;
+  
+  }
   const submithandler=(event)=>{
   event.preventDefault();
   
   const item=selecthandler.current.value;
   const description=descriptionhandler.current.value;
   const price=pricehandler.current.value;
-  const id=Math.random().toString();
+  const previousdate=datehandler.current.value;
+  //const id=Math.random().toString();
   const date=new Date().toLocaleString()
+  
   const add={
-    id,
+    //id,
     item,
     description,
     price,
-    date
+    date,
+    previousdate
 
   }
   
@@ -41,6 +53,7 @@ const ExpenseTracker = () => {
   selecthandler.current.value=''
   descriptionhandler.current.value=''
   pricehandler.current.value=''
+  datehandler.current.value=''
 
   }
   useEffect(() => {
@@ -116,6 +129,10 @@ const ExpenseTracker = () => {
           <Form.Label>Price</Form.Label>
           <Form.Control ref={pricehandler} type="number"  />
         </Form.Group>
+        <Form.Group style={{display:'none'}} as={Col} controlId="formGridPassword">
+          <Form.Label>Date</Form.Label>
+          <Form.Control ref={datehandler} type="text"  />
+        </Form.Group>
       </Row>
       <Button  variant="primary" type="submit">
         Submit
@@ -123,7 +140,7 @@ const ExpenseTracker = () => {
       </Form>
       </Container>
 
-      <InputForm></InputForm>
+      <InputForm updateitem={updateitemhandler}></InputForm>
       
       
     </div>
