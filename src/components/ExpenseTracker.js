@@ -1,5 +1,5 @@
 
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef,useState,useEffect } from "react";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { NavLink } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
@@ -13,25 +13,72 @@ import InputForm from "./InputForm";
 
 
 const ExpenseTracker = () => {
+  
   const cartctx = useContext(CartContext)
+  const [complete, setcomplete] = useState(true)
+  
   const selecthandler=useRef();
   const descriptionhandler=useRef()
   const pricehandler=useRef();
   const submithandler=(event)=>{
   event.preventDefault();
+  
   const item=selecthandler.current.value;
   const description=descriptionhandler.current.value;
   const price=pricehandler.current.value;
   const id=Math.random().toString();
+  const date=new Date().toLocaleString()
   const add={
     id,
     item,
     description,
-    price
+    price,
+    date
 
   }
+  
   cartctx.additem(add)
+  selecthandler.current.value=''
+  descriptionhandler.current.value=''
+  pricehandler.current.value=''
+
   }
+  useEffect(() => {
+    fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAz3m7AYKNKO0fdAzD5nOCyTT-6dTFAzy4",
+      {
+        method: "POSt",
+        body: JSON.stringify({
+          idToken: cartctx.token,
+        }),
+        header: {
+          "Content-Type": "application-json",
+        },
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            throw new Error(data.error.message);
+          });
+        }
+      })
+      .then((data) => {
+        
+        setcomplete(false)
+        console.log('updated')
+        //navigate('/expensetracker')
+        //localStorage.setItem('token',data.idToken)
+        //const email=data.email.replace('@','').replace('.','')
+        //cartctx.login(email,data.idToken)
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+      // eslint-disable-next-line 
+  }, []);
   
   return (
     <div>
@@ -39,9 +86,13 @@ const ExpenseTracker = () => {
       <CardHeader style={{ backgroundColor: "violet", paddingBlock: "1rem",display:'flex',justifyContent:'space-between',borderRadius:'1rem' }}>
         <li style={{listStyle:'none',padding:'1rem',background:'white',borderRadius:'1rem'}}>Welcome to Expense Tracker</li>
         <li style={{listStyle:'none',background:'lightyellow',padding:'1rem',borderRadius:'1rem'}}>
-          <NavLink style={{textDecoration:'none'}} to="/complete">
+          {complete && <NavLink style={{textDecoration:'none'}} to="/complete">
             Your Profile Is Incomplete : Complete Now
-          </NavLink>
+          </NavLink>}
+         {!complete && <NavLink style={{textDecoration:'none'}} to="/complete">
+            Your Profile Is 100% complete
+            <Button >Edit Now</Button>
+          </NavLink>}
         </li>
       </CardHeader>
       <Container style={{marginTop:'5rem',background:'yellow'}}>
@@ -49,8 +100,8 @@ const ExpenseTracker = () => {
       <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridEmail">
           <Form.Label>Expenses List</Form.Label>
-          <Form.Select ref={selecthandler} aria-label="Default select example">
-      <option>Open this select menu</option>
+          <Form.Select ref={selecthandler} value='' aria-label="Default select example">
+      
       <option value="petrol">Petrol</option>
       <option value="disel">Disel</option>
       <option value="salary">Salary</option>

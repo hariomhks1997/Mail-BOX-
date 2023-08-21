@@ -9,8 +9,9 @@ const InputItem = (props) => {
       <ListGroup style={{backgroundColor:'yellow',marginTop:'2rem',justifyContent:'space-between'}} horizontal>
       <ListGroup.Item style={{fontSize:'1rem'}}>{props.item} </ListGroup.Item>
       <ListGroup.Item style={{fontSize:'1rem'}}>{props.description}</ListGroup.Item>
-      <ListGroup.Item style={{fontSize:'1rem'}}>{props.price}</ListGroup.Item>
-      <ListGroup.Item style={{fontSize:'1rem'}}>Date</ListGroup.Item>
+      <ListGroup.Item style={{fontSize:'1rem'}}>Rs : {props.price}</ListGroup.Item>
+      <ListGroup.Item style={{fontSize:'1rem'}}>{props.date}</ListGroup.Item>
+      
     </ListGroup>
         
     </div>

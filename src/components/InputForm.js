@@ -3,28 +3,40 @@ import InputItem from './InputItem'
 import CartContext from '../Store/Cart-context'
 import { Container } from 'react-bootstrap'
 
+
+
 import ListGroup from 'react-bootstrap/ListGroup';
+import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 const InputForm = () => {
     const cartctx = useContext(CartContext)
     console.log(cartctx.items)
     
     const product=cartctx.items.map((ite)=>(
-    <InputItem key={ite.id} item={ite.item} description={ite.description} price={ite.price}></InputItem>
+    <InputItem key={Math.random().toString()} item={ite.item} description={ite.description} price={ite.price} id={ite.id} date={ite.date}></InputItem>
     ))
+    const totalamount=cartctx.totalamount.toFixed(2)
   return (
-    <Container style={{background:'green',marginTop:'5rem',height:'20rem',overflow:'scroll',borderRadius:'1rem'}}>
-    
-      <ListGroup style={{backgroundColor:'black',marginTop:'2rem',justifyContent:'space-between'}} horizontal>
-      <ListGroup.Item style={{fontSize:'1rem'}}>Item List </ListGroup.Item>
-      <ListGroup.Item style={{fontSize:'1rem'}}>Description</ListGroup.Item>
-      <ListGroup.Item style={{fontSize:'1rem'}}>Price</ListGroup.Item>
-      <ListGroup.Item style={{fontSize:'1rem'}}>Date</ListGroup.Item>
+    <div>
+      <Container style={{marginTop:'2rem',background:'black',alignItems:'center'}}>
+    <ListGroup style={{justifyContent:'space-between',padding:'1rem',background:'black'}} horizontal>
+      <ListGroup.Item style={{fontSize:'1rem',background:'red'}}>Item List </ListGroup.Item>
+      <ListGroup.Item style={{fontSize:'1rem',background:'red'}}>Description</ListGroup.Item>
+      <ListGroup.Item style={{fontSize:'1rem',background:'red'}}>Price</ListGroup.Item>
+      <ListGroup.Item style={{fontSize:'1rem',background:'red'}}>Date</ListGroup.Item>
     </ListGroup>
-      
+    <CardHeader style={{background:'yellow',fontSize:'2rem',textAlign:'center'}}>Total Amount : {totalamount}</CardHeader>
+    </Container>  
+    
+    <Container style={{background:'green',height:'20rem',overflow:'scroll',marginTop:'1rem',}}>
+    
+    
+    
+     
       {product}
       
       </Container>  
+      </div>
   )
 }
 

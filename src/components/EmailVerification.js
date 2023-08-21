@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React,{useContext,useEffect} from 'react';
 import { Button } from 'react-bootstrap';
 import Model from '../UI/Model';
 import CartContext from '../Store/Cart-context';
@@ -8,8 +8,8 @@ const EmailVerification = (props) => {
     const navigate=useNavigate();
     const emailverify = useContext(CartContext)
     console.log(emailverify.token)
-    const verifyemail=(event)=>{
-        event.preventDefault();
+    const verifyemail=()=>{
+        //event.preventDefault();
         fetch(
             "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAz3m7AYKNKO0fdAzD5nOCyTT-6dTFAzy4",
             {
@@ -34,7 +34,7 @@ const EmailVerification = (props) => {
               }
             })
             .then((data) => {
-              alert("sucess");
+              
               console.log(data)
               //navigate('/expensetracker')
               //localStorage.setItem('token',data.idToken)
@@ -44,9 +44,21 @@ const EmailVerification = (props) => {
               props.shown()
             })
             .catch((err) => {
-              alert(err.message);
+              if(err.message==='TOO_MANY_ATTEMPTS_TRY_LATER'){
+                alert('Please Wait Sometime Then Login ')
+              }else{
+                alert('Some Thing Went Wrong Please Login Again');
+              }
+              emailverify.logout();
+              
+              navigate('/login')
+              
             });
     }
+    useEffect(() => {
+  verifyemail();
+    }, [])
+    
   return (
     <Model>
         <Button onClick={verifyemail}>Verify Email</Button>
@@ -54,4 +66,4 @@ const EmailVerification = (props) => {
   )
 }
 
-export default EmailVerification
+export default EmailVerification;
