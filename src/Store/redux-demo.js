@@ -1,57 +1,13 @@
-import { legacy_createStore } from "redux";
-import { createSlice ,configureStore} from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./counter";
+import authReducer from "./auth";
 
-const initialcounterstate={
-    counter:0,
-    showcounter:true
-}
-const counterslice=createSlice({
-    name:'counter',
-    initialState:initialcounterstate,
-    reducers:{
-        increment(state){
-            state.counter++;
-        },
-        decrement(state){
-            state.counter--; 
-        },
-        increase(state,action){
-           state.counter=state.counter+action.payload;
-        },
-        decrease(state,action){
-            state.counter=state.counter-action.payload;
-         },
-        toggleCounter(state){
-            state.showcounter=!state.showcounter
-        }
-     
-    }
-});
-const initialauthstate={
-    isAuthenciated:false
-};
-const authslice=createSlice({
-    name:'authentician',
-    initialState:initialauthstate,
-    reducers:{
-        login(state){
-            state.isAuthenciated=true;
-
-        },
-        logout(state){
-            state.isAuthenciated=false
-        }
-    }
-
-})
 const store=configureStore({
     reducer:{
-    counter:counterslice.reducer,auth:authslice.reducer
+    counter:counterReducer,auth:authReducer
     }
     
-}); 
-export const counterActions=counterslice.actions;
-export const authActions=authslice.actions;
+});
 export default store;
 // const counterReducer=(state=initialstate,action)=>{
 //         if(action.type==='increment'){
