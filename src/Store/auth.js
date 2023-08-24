@@ -1,19 +1,31 @@
-import { legacy_createStore } from "redux";
-import { createSlice ,configureStore} from "@reduxjs/toolkit";
-
+import { createSlice } from "@reduxjs/toolkit";
+const token=localStorage.getItem('token')
+const userIsLoggedIn=!!token
 const initialauthstate={
-    isAuthenciated:false
+    
+    isLoggedIn:userIsLoggedIn,
+    token:token
 };
 const authslice=createSlice({
     name:'authentician',
     initialState:initialauthstate,
     reducers:{
-        login(state){
-            state.isAuthenciated=true;
+        login(state,action){
+      localStorage.setItem('token',action.payload)
+       const token=localStorage.getItem('token')
+       const userIsLoggedIn=!!token
+       console.log(userIsLoggedIn)
+            
+                state.isLoggedIn=userIsLoggedIn;
+                state.token=token;
+
+             
 
         },
         logout(state){
-            state.isAuthenciated=false
+            localStorage.removeItem('token')
+            
+            state.isLoggedIn=false
         }
     }
 

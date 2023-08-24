@@ -1,22 +1,45 @@
-import { Fragment } from 'react';
-import Counter from './components/Counter';
-import Auth from './components/Auth';
-import Header from './components/Header';
-import { useSelector } from 'react-redux';
-import UserProfile from './components/UserProfile';
+import React,{useContext, useState} from 'react';
+import Login from './components/Login';
+import Navbars from './components/Navbars';
+import { Routes,Route } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import ExpenseTracker from './components/ExpenseTracker';
+import CartContext from './Store/Cart-context';
+import ProfileComplete from './components/ProfileComplete';
+import EmailVerification from './components/EmailVerification';
+import ForgetPassword from './components/ForgetPassword';
 
 
-function App() {
-  const IsAuth=useSelector(state=>state.auth.isAuthenciated)
+const App = () => {
+  const cartctx = useContext(CartContext)
+  const [emailverify, setemailverify] = useState(true)
+  const shownhandler=()=>{
+    setemailverify(false)
+  }
   return (
-    <Fragment>
-      <Header></Header>
-      {!IsAuth && <Auth></Auth>}
-      {IsAuth && <UserProfile></UserProfile>}
- <Counter />
-    </Fragment>
+    <div >
+     
+     
+    <Navbars></Navbars>  
+    <Routes>
+    <Route exact path='/home' element={<Home></Home>}></Route>
+    <Route exact path='/about' element={<About></About>}></Route>
+    <Route exact path='/expensetracker' element={emailverify ? <EmailVerification shown={shownhandler}></EmailVerification>:<ExpenseTracker token={cartctx.token}></ExpenseTracker>}></Route>
+    
+   <Route exact path='/complete' element={<ProfileComplete  ></ProfileComplete>}></Route>
+
+    <Route exact path='/login' element={<Login></Login>}></Route>
+  {emailverify && <Route exact path='/verifyemail' element={<EmailVerification shown={shownhandler}></EmailVerification>}></Route>}
+  <Route exact path='/forget' element={<ForgetPassword></ForgetPassword>}></Route>
+    
+      
+      
+    </Routes>
    
-  );
+ 
+    </div>
+  )
 }
 
-export default App;
+export default App
