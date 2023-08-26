@@ -13,19 +13,34 @@ import ForgetPassword from './components/ForgetPassword';
 
 const App = () => {
   const cartctx = useContext(CartContext)
+  console.log(cartctx.totalamount)
+  const [theme, settheme] = useState(true)
   const [emailverify, setemailverify] = useState(true)
+  const [colo, setcolo] = useState('white')
+  const color=(item)=>{
+    setcolo(item)
+    console.log(item)
+      }
   const shownhandler=()=>{
     setemailverify(false)
   }
+  const amount=(item)=>{
+settheme(item)
+
+  }
+  const premium=(item)=>{
+setcolo(item)
+  }
+  
   return (
-    <div >
+    <div style={{background:colo}}>
      
      
-    <Navbars></Navbars>  
+    <Navbars amount={theme} color={color}></Navbars>  
     <Routes>
     <Route exact path='/home' element={<Home></Home>}></Route>
     <Route exact path='/about' element={<About></About>}></Route>
-    <Route exact path='/expensetracker' element={emailverify ? <EmailVerification shown={shownhandler}></EmailVerification>:<ExpenseTracker token={cartctx.token}></ExpenseTracker>}></Route>
+    <Route exact path='/expensetracker' element={emailverify ? <EmailVerification shown={shownhandler}></EmailVerification>:<ExpenseTracker token={cartctx.token} amount={amount} premium={premium}></ExpenseTracker>}></Route>
     
    <Route exact path='/complete' element={<ProfileComplete  ></ProfileComplete>}></Route>
 

@@ -9,17 +9,22 @@ import Row from 'react-bootstrap/Row';
 import { Container } from "react-bootstrap";
 import CartContext from "../Store/Cart-context";
 import InputForm from "./InputForm";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { postActions } from '../Store/post';
 
 
-
-const ExpenseTracker = () => {
+const ExpenseTracker = (props) => {
+  const dispatch=useDispatch();
+ // const cartctx=useSelector(state=>state.post.items)
+  const emailverify=useSelector(state=>state.auth.token)
   
-  
-  const cartctx = useContext(CartContext)
+ const cartctx = useContext(CartContext)
   const [complete, setcomplete] = useState(true)
   const [amount, setamount] = useState(false)
   const amounthandler=(item)=>{
     setamount(item)
+    props.amount(item)
   }
   const selecthandler=useRef();
   const descriptionhandler=useRef()
@@ -52,8 +57,8 @@ const ExpenseTracker = () => {
     previousdate
 
   }
-  
-  cartctx.additem(add)
+  //dispatch(postActions.postitem(add))
+ cartctx.additem(add)
   selecthandler.current.value=''
   descriptionhandler.current.value=''
   pricehandler.current.value=''
@@ -66,7 +71,7 @@ const ExpenseTracker = () => {
       {
         method: "POSt",
         body: JSON.stringify({
-          idToken: cartctx.token,
+          idToken: emailverify,
         }),
         header: {
           "Content-Type": "application-json",
@@ -96,13 +101,16 @@ const ExpenseTracker = () => {
       });
       // eslint-disable-next-line 
   }, []);
+  const premium=()=>{
+    props.premium('black')
+  }
   
   return (
     <div>
     <div style={{ marginTop: "6rem" }}>
       <CardHeader style={{textAlign:'center'}}>
-      {amount && <Button style={{fontSize:'2rem'}} >
-             You Are Our Premium Member
+      {amount && <Button style={{fontSize:'2rem'}} onClick={premium}>
+            Activate Premium Member
           </Button>}
       </CardHeader>
     
@@ -125,7 +133,7 @@ const ExpenseTracker = () => {
       <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridEmail">
           <Form.Label>Expenses List</Form.Label>
-          <Form.Select ref={selecthandler} value='' aria-label="Default select example">
+          <Form.Select ref={selecthandler}  aria-label="Default select example">
       
       <option value="petrol">Petrol</option>
       <option value="disel">Disel</option>

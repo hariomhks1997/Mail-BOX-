@@ -128,6 +128,7 @@ const Login = (props) => {
         cartctx.login(email,data.idToken)
         localStorage.setItem('picture',data.profilePicture)
         dispatch(authActions.login(data.idToken))
+        dispatch(authActions.email(email))
         
 
        })

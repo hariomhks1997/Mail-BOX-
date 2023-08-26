@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
  import Container from 'react-bootstrap/Container';
  import Nav from 'react-bootstrap/Nav';
  import Navbar from 'react-bootstrap/Navbar';
@@ -8,9 +8,14 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { authActions } from '../Store/auth';
+import { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import CartContext from '../Store/Cart-context';
 
-const Navbars = () => {
- 
+const Navbars = (props) => {
+  const cartctx = useContext(CartContext)
+ const [show, setshow] = useState(true)
+
 
   const isLoggedIn=useSelector(state=>state.auth.isLoggedIn)
   const dispatch=useDispatch();
@@ -19,6 +24,15 @@ const Navbars = () => {
     //cartctx.logout();
     dispatch(authActions.logout())
   }
+  const darkhandler=()=>{
+    props.color('black')
+    setshow(false)
+  }
+  const lighthandler=()=>{
+props.color('white')
+setshow(true)
+  }
+ 
   return (
     <div className={classes.nav} >
       
@@ -45,6 +59,8 @@ const Navbars = () => {
                  Separated link
              </NavDropdown.Item>
             </NavDropdown>
+            {show && props.amount && <Button onClick={darkhandler}>Dark</Button>}
+            {!show && props.amount && <Button onClick={lighthandler}>Light</Button>}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -7,6 +7,7 @@ import { authActions } from '../Store/auth';
 import { useDispatch } from 'react-redux';
 
 
+
 const EmailVerification = (props) => {
   const dispatch=useDispatch();
     const navigate=useNavigate();

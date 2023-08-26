@@ -9,6 +9,7 @@ import axios from "axios";
 
 const CartProvider = (props) => {
   const [additem, setadditem] = useState([])
+  
  const [totalamount, settotalamount] = useState(0);
   // const [quantity, setquantity] = useState(0)
  
@@ -28,13 +29,13 @@ const initialtoken=localStorage.getItem('token')
         const data=await response.data
         for(const key in data ){
          
-          setadditem((prev)=>([...prev,
+          setadditem((prev)=>([
             {
               id:key,
               date:data[key].date,
               item:data[key].item,
               price:data[key].price,
-              description:data[key].price}])
+              description:data[key].price},...prev])
           )
         }
         
@@ -54,17 +55,17 @@ const initialtoken=localStorage.getItem('token')
   useEffect(() => {
 
     let updateAmount = 0;
-    //let updateQuantity = 0;
+    let updateQuantity = 0;
 
     additem.forEach((item) => {
-      // console.log("hii");
+      console.log("hii");
       updateAmount += Number(item.price);
-     // updateQuantity += Number(item.quantity);
+     //updateQuantity += Number(item.quantity);
      
     });
     
     settotalamount(updateAmount);
-    //setquantity(updateQuantity);
+   // setquantity(updateQuantity);
   }, [additem]);
   
   
@@ -141,7 +142,7 @@ const initialtoken=localStorage.getItem('token')
      price
     }
     console.log(add)
-    setadditem((prev)=>[...prev,add])
+    setadditem((prev)=>[add,...prev])
     
       }
   
