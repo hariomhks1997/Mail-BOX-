@@ -1,19 +1,17 @@
 import { uiActions } from './ui-slice';
 import { cartActions } from './cart-slice';
-
+import axios from 'axios';
 export const fetchCartData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
-      const response = await fetch(
+      const response = await axios.get(
         'https://react-hariom-default-rtdb.firebaseio.com/cart.json'
       );
+      console.log(response.data)
+      
 
-      if (!response.ok) {
-        throw new Error('Could not fetch cart data!');
-      }
-
-      const data = await response.json();
-
+      const data = await response.data;
+      console.log(data)
       return data;
     };
 
@@ -48,20 +46,12 @@ export const sendCartData = (cart) => {
     );
 
     const sendRequest = async () => {
-      const response = await fetch(
-        'https://react-hariom-default-rtdb.firebaseio.com/cart.json',
-        {
-          method: 'PUT',
-          body: JSON.stringify({
-            items: cart.items,
-            totalQuantity: cart.totalQuantity,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error('Sending cart data failed.');
-      }
+      await axios.put(
+        'https://react-hariom-default-rtdb.firebaseio.com/cart.json',cart);
+    
+    //   if (!response.ok) {
+    //     throw new Error('Sending cart data failed.');
+    //   }
     };
 
     try {
