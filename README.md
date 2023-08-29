@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Course Code & Materials
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the course source code and other extra materials like slides.
 
-## Available Scripts
+## How to use
 
-In the project directory, you can run:
+The code snapshots are organized in multiple **branches** where every branch **represents a course section**.
 
-### `npm start`
+For example, the branch [01-getting-started](https://github.com/academind/react-complete-guide-code/tree/01-getting-started) holds all code snapshots and extra materials for section 1 of the course ("Getting Started").
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You can switch branches via the branch dropdown above the directory explorer.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![Click on the branch dropdown and then select the appropriate branch for the course section you're looking for](./selecting-a-branch.jpg)
 
-### `npm test`
+In most branches, you'll find multiple folders which organize the section-specific content further:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Often, you'll find a `/code` subfolder which contains any relevent code snapshots for the given course section
+- You also often find `/slides` folders which - guess what - contain the slides for the module
+- `/extra-files` typically contains extra files like `.css` files that might be attached to individual lectures in that course module
 
-### `npm run build`
+The folder names should generally be self-explanatory but also feel free to simply click around and see which materials are available.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Using code snapshots
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Code snapshots (which you find in `/code`) are there for you to compare your code to mine and find + fix errors you might have in your code.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You can either view my code directly here on Github (you can open + view code files without issues here) or you download the snapshots.
 
-### `npm run eject`
+The subfolders in the `/code` folder are named such that mapping them to the course lectures is straightforward.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Downloading code snapshots
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can download all the content of a branch via the "Code" button here on Github. You can then either [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) the repository or simply download the selected branch content as a ZIP file.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Important:** You always download the **entire branch content!**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You can then dive into the interesting folders (e.g. the individual code snapshots) locally on your hard drive.
 
-## Learn More
+### Running the attached code
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can use the attached code simply to compare it to yours. But you can also run it.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To run my code, navigate into a specific code snapshot folder via the `cd` command in your command prompt or terminal first.
 
-### Code Splitting
+Then run `npm install` to install all required dependencies (this will create a `/node_modules` folder).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Important:** If you're using the code for a module that requires API keys or a backend (e.g. the module about sending Http requests), you'll have to use **your backend URLs** or API keys. Mine won't work (I disabled my projects).
