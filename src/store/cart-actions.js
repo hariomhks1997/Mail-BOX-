@@ -1,125 +1,101 @@
-import { uiActions } from './ui-slice';
-import { cartActions } from './cart-slice';
+
 import axios from 'axios';
+import { uiActions } from './ui-slice';
 
 
-const Signup = (sign) => {
-const enteredemail=sign.enteredemail;
-const enteredpassword=sign.enteredpassword;
-console.log(enteredemail,enteredpassword)
+export const Signup = (email1,password1) => {
 
-    return (dispatch) => {
+console.log(email1,password1)
+
+    return async (dispatch) => {
+      dispatch(
+              uiActions.showNotification({
+                status: 'pending',
+                title: 'SignUpIn...',
+                message: 'SignUp data pending!',
+              })
+            );
       const signup = async () => {
-        
-        
-       fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCuBEKLJz4anxFyAvC1RphQ1DIoTjpNfSk',{
-            method:'Post',
-            body:JSON.stringify({
-              email:enteredemail,
-              password:enteredpassword,
-              returnSecureToken:true
-              
-            }),
-            headers:{
-              'Content-type':'application/json'
-            }
-          })
-        
-      };
+        const response=await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAz3m7AYKNKO0fdAzD5nOCyTT-6dTFAzy4',{
+          email:email1,
+          password:password1,
+          returnSecureToken:true
+
+      })
+     
+      return response;
+     
+    }
   
       try {
-        const cartData =signup();
+        await signup();
+       
         dispatch(
-          cartActions.replaceCart({
-            items: cartData.items || [],
-            totalQuantity: cartData.totalQuantity,
+          uiActions.showNotification({
+            status: 'sucess',
+            title: 'sucess...',
+            message: 'SignUp data sucessfully',
           })
         );
       } catch (error) {
-        alert('errot')
+      
         dispatch(
           uiActions.showNotification({
             status: 'error',
             title: 'Error!',
-            message: 'Fetching cart data failed!',
+            message: `SignUp data failed! ${error.response.data.error.message}`,
           })
         );
       }
     };
   };
-  export default Signup;
 
-// export const fetchCartData = () => {
-//   return async (dispatch) => {
-//     const fetchData = async () => {
-//       const response = await axios.get(
-//         'https://react-hariom-default-rtdb.firebaseio.com/cart.json'
-//       );
-//       console.log(response.data)
-      
 
-//       const data = await response.data;
-//       console.log(data)
-//       return data;
-//     };
 
-//     try {
-//       const cartData = await fetchData();
-//       dispatch(
-//         cartActions.replaceCart({
-//           items: cartData.items || [],
-//           totalQuantity: cartData.totalQuantity,
-//         })
-//       );
-//     } catch (error) {
-//       dispatch(
-//         uiActions.showNotification({
-//           status: 'error',
-//           title: 'Error!',
-//           message: 'Fetching cart data failed!',
-//         })
-//       );
-//     }
-//   };
-// };
+  export const SignIn = (email1,password1) => {
 
-// export const sendCartData = (cart) => {
-//   return async (dispatch) => {
-//     dispatch(
-//       uiActions.showNotification({
-//         status: 'pending',
-//         title: 'Sending...',
-//         message: 'Sending cart data!',
-//       })
-//     );
-
-//     const sendRequest = async () => {
-//       await axios.put(
-//         'https://react-hariom-default-rtdb.firebaseio.com/cart.json',cart);
+    console.log(email1,password1)
     
-    //   if (!response.ok) {
-    //     throw new Error('Sending cart data failed.');
-    //   }
-//     };
-
-//     try {
-//       await sendRequest();
-
-//       dispatch(
-//         uiActions.showNotification({
-//           status: 'success',
-//           title: 'Success!',
-//           message: 'Sent cart data successfully!',
-//         })
-//       );
-//     } catch (error) {
-//       dispatch(
-//         uiActions.showNotification({
-//           status: 'error',
-//           title: 'Error!',
-//           message: 'Sending cart data failed!',
-//         })
-//       );
-//     }
-//   };
-// };
+        return async (dispatch) => {
+          dispatch(
+                  uiActions.showNotification({
+                    status: 'pending',
+                    title: 'Logging...',
+                    message: 'Logging data pending!',
+                  })
+                );
+          const signin = async () => {
+          const response=await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAz3m7AYKNKO0fdAzD5nOCyTT-6dTFAzy4',{
+              email:email1,
+              password:password1,
+              returnSecureToken:true
+    
+          })
+         
+          return response;
+         
+        }
+      
+          try {
+          await signin();
+            
+            dispatch(
+              uiActions.showNotification({
+                status: 'sucess',
+                title: 'sucess...',
+                message: 'Logging data sucessfully',
+              })
+            );
+          } catch (error) {
+          
+            dispatch(
+              uiActions.showNotification({
+                status: 'error',
+                title: 'Error!',
+                message: `Logging data failed! ${error.response.data.error.message}`,
+              })
+            );
+          }
+        };
+      };
+    
